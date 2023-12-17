@@ -15,40 +15,45 @@
         <div class=" container-fluid">
             <a class="navbar-brand" href="#">My Vue</a>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li v-for="(link, index) in links" class="nav-item" :key="index">
-                    <a class="nav-link active" aria-current="page" :href="link.URL"
-                        :title="`This link goes to the ${link.Text} page`">{{ link.Text
+                <li v-for="(page, index) in pages" class="nav-item" :key="index">
+                    <a class="nav-link active" aria-current="page" :href="page.link.URL"
+                        :title="`This link goes to the ${page.link.Text} page`" @click.prevent="activePage = index">{{
+                        page.link.Text
                         }}</a>
                 </li>
             </ul>
         </div>
     </nav>
     <div id="content" class="container">
-        <h1>{{ pageTitle }}</h1>
-        <p>{{ content }}</p>
+        <h1>{{ pages[activePage].pageTitle }}</h1>
+        <p>{{ pages[activePage].content }}</p>
     </div>
 
     <script>
         Vue.createApp({
             data() {
                 return {
-                    links: [
-                        { Text: 'Home', URL: 'index.html' },
-                        { Text: 'About', URL: 'about.html' },
-                        { Text: 'Contact', URL: 'contact.html' },
-                    ]
-                }
-            }
-        }).mount('nav');
-
-        Vue.createApp({
-            data() {
-                return {
-                    pageTitle: 'Hello, Vue',
-                    content: 'Welcome to the wonderful world of vue'
+                    activePage: 0,
+                    pages: [
+                        {
+                            link: { Text: 'Home', URL: 'index.html' },
+                            pageTitle: 'Home Page',
+                            content: 'This is the home content, Welcome to the wonderful world of vue'
+                        },
+                        {
+                            link: { Text: 'About', URL: 'about.html' },
+                            pageTitle: 'About Page',
+                            content: 'This is the about content, Welcome to the wonderful world of vue'
+                        },
+                        {
+                            link: { Text: 'Contact', URL: 'contact.html' },
+                            pageTitle: 'Contact Page',
+                            content: 'This is the contact content, Welcome to the wonderful world of vue'
+                        },
+                    ],
                 };
             }
-        }).mount('#content');
+        }).mount('body');
     </script>
 </body>
 
